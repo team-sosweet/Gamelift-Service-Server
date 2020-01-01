@@ -6,7 +6,7 @@ let gamelift = require('../utils/aws');
 let router = express.Router();
 
 /*
-    메치메이킹 시작 API
+    매치메이킹 시작 API
     query parameter : ticketId, 추후: LatencyInMs
 */
 router.get('/start', function(req, res, next) {
@@ -29,7 +29,7 @@ router.get('/start', function(req, res, next) {
 
 
     gamelift.startMatchmaking(params, function(err, data) {
-        if (err) console.error(err, err.stack);
+        if (err) next(new Err(err.statusCode, err.message));
         else {
             console.log(data);
             let describe = setInterval(function test() {
@@ -55,8 +55,17 @@ router.get('/start', function(req, res, next) {
     })
 })
 
-router.delete('/cancel', function() {
+/*
+    매치메이킹 취소 API
+    queryParameter : ticketId
+*/ 
+router.delete('/cancel', function(req, res, next) {
+    const ticketId = req.query.ticketId;
 
+    gamelift.stopMatchmaking({TicketId: ticketId}, function(err, data) {
+        if (err) next(new Err(err.statusCode, err.message));
+        else res.status(200).json({description: "match canceled successfully."})
+    })
 })
 
 module.exports = router;
