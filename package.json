@@ -1,0 +1,25 @@
+{
+  "name": "saucewich-service-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-sosweet/Gamelift-Service-Server.git"
+  },
+  "author": "huewilliams",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/team-sosweet/Gamelift-Service-Server/issues"
+  },
+  "homepage": "https://github.com/team-sosweet/Gamelift-Service-Server#readme",
+  "dependencies": {
+    "aws-sdk": "^2.596.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "uuid": "^3.3.3"
+  }
+}
