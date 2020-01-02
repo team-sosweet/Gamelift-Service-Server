@@ -143,9 +143,12 @@ router.use('/latency', latencyRouter);
  *            type: string
  *      responses:
  *          200:
- *              description: 측정 대기중인 Latency 목록
  *              schema:
  *                  type: object
+ *                  properties:
+ *                      description:
+ *                          type: string
+ *                          example: latency checking started.
  * 
  * /latency/end:
  *  get:
@@ -158,7 +161,7 @@ router.use('/latency', latencyRouter);
  *            type: string
  *      responses:
  *          200:
- *              description: 측정 완료된 latecy 값 (측정 시작 시간 - 측정 완료 시간, millisecond)
+ *              description: 측정 완료된 latecy 값 (측정 완료 시각 - 측정 시작 시각, millisecond)
  *              schema:
  *                  type: object
  *                  properties:
