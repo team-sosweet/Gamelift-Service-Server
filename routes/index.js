@@ -31,6 +31,10 @@ router.use('/latency', latencyRouter);
  *            name: ticketId
  *            required: true
  *            type: string
+ *          - in: query
+ *            name: LatencyInMs
+ *            required: true
+ *            type: integer
  *      responses:
  *          200:
  *              description: 매치메이킹 성공
