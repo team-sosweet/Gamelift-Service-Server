@@ -11,13 +11,14 @@ let router = express.Router();
 */
 router.get('/start', function(req, res, next) {
     const ticketId = req.query.ticketId;
+    const LatencyInMs = Number.parseInt(req.query.LatencyInMs);
 
     let params = {
         ConfigurationName: 'v1-1',
         Players: [
             {
                 LatencyInMs: {
-                    'ap-northeast-2': 50
+                    'ap-northeast-2': LatencyInMs,
                 },
                 PlayerAttributes: {},
                 PlayerId: uuid.v4(),
