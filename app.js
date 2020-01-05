@@ -7,7 +7,7 @@ let indexRouter = require('./routes/index');
 
 let app = express();
 
-app.set('port', 3000);
+app.set('port', 8080);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

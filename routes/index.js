@@ -10,14 +10,19 @@ let router = express.Router();
 router.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 router.use('/match', matchRouter);
 router.use('/latency', latencyRouter);
+router.get('/ping', (req, res) => {
+    res.status(200).json({description: "ping test success."});
+})
 
 /** 
  * @swagger
  * tags:
  *  -   name: match
  *      description: matchmaking APIs
- *  -   name: latency
+ *  -   name: latency(deprecated)
  *      description: checking latency APIs
+ *  -   name: ping
+ *      description: server ping test
 */
 
 /**
@@ -139,7 +144,7 @@ router.use('/latency', latencyRouter);
  * /latency/start:
  *  get:
  *      summary: latency 측정 시작
- *      tags: [latency]
+ *      tags: [latency(deprecated)]
  *      parameters: 
  *          - in: query
  *            name: id
@@ -157,7 +162,7 @@ router.use('/latency', latencyRouter);
  * /latency/end:
  *  get:
  *      summary: latency 측정 완료
- *      tags: [latency]
+ *      tags: [latency(deprecated)]
  *      parameters:
  *          - in: query
  *            name: id
@@ -173,4 +178,20 @@ router.use('/latency', latencyRouter);
  *                          type: integer
  */
 
+ /** 
+  * @swagger
+  * /ping:
+  *  get:
+  *     summary: 서버 ping 테스트
+  *     tags: [ping]
+  *     responses:
+  *         200:
+  *             description: ping test 성공
+  *             schema:
+  *                 type: object
+  *                 properties:
+  *                     description:
+  *                         type: string
+  *                         example: ping test success.
+  */
 module.exports = router;
