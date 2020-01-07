@@ -46,61 +46,15 @@ router.get('/ping', (req, res) => {
  *              schema:
  *                  type: object
  *                  properties:
- *                      MatchmakingTicket:
- *                          type: object
- *                          properties:
- *                              TicketId: 
- *                                  type: string
- *                              ConfigurationName:
- *                                  type: string
- *                              ConfigurationArn:
- *                                  type: string
- *                              Status:
- *                                  type: string
- *                                  example: COMPLETED
- *                              StatusReason:
- *                                  type: string
- *                              StatusMessage:
- *                                  type: string
- *                              StartTime: 
- *                                  type: string
- *                                  format: date-time
- *                              EndTime:
- *                                  type: string
- *                                  format: date-time
- *                              Players:
- *                                  type: array
- *                                  items:
- *                                      type: object
- *                                      properties:
- *                                          PlayerId:
- *                                              type: string
- *                                          PlayerAttributes:
- *                                              type: object
- *                                          Team:       
- *                                              type: string
- *                                          LatencyInMs:
- *                                              type: object
- *                              GameSessionConnectionInfo:
- *                                  type: object
- *                                  properties:
- *                                      GameSessionArn: 
- *                                          type: string
- *                                      IpAddress:
- *                                          type: string
- *                                      DnsName:
- *                                          type: string
- *                                      Port:
- *                                          type: integer
- *                                      MatchedPlayerSessions:
- *                                          type: array
- *                                          items:
- *                                              type: object
- *                                              properties:
- *                                                  PlayerId: string
- *                                                  PlayerSessionId: string
- *                              EstimatedWaitTime:
- *                                  type: integer
+ *                      Address:
+ *                        type: string
+ *                        example: 52.79.248.26:7777
+ *                      PlayerId:
+ *                        type: string
+ *                        example: 62d9fae6-f51e-4125-9e3b-742d40939ea7
+ *                      PlayerSessionId:
+ *                        type: string
+ *                        example: psess-1baa0bac-88f7-42b5-9971-15373ae8f5f8
  *                                      
  *          403:    
  *              description: TIMED_OUT or FAILED or CANCELLED
