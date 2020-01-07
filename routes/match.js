@@ -41,9 +41,23 @@ router.get('/start', function(req, res, next) {
             console.log(data);
             const sessions = data.GameSessions.length;
             if(sessions) {
-                res.status(200).json({
-                    IpAddress: data.GameSessions[0].IpAddress,
-                    Port: data.GameSessions[0].Port
+                let sessionInfo = data.GameSessions[0];
+                let createParams = {
+                    GameSessionId: sessionInfo.GameSessionId,
+                    PlayerId: uuid.v4()
+                }
+                console.log(createParams)
+                gamelift.createPlayerSession(createParams, function(err, data) {
+                    if (err) next(new Err(err.statusCode, err.message));
+                    else {
+                        let sessionInfo = data.PlayerSession;
+                        console.log(data.PlayerSession);
+                        res.json({
+                            Address: sessionInfo.IpAddress + ':' + sessionInfo.Port,
+                            PlayerId: sessionInfo.PlayerId,
+                            PlayerSessionId: sessionInfo.PlayerSessionId
+                        })
+                    }
                 })
             } else {
                 gamelift.startMatchmaking(matchParams, function(err, data) {
@@ -63,7 +77,12 @@ router.get('/start', function(req, res, next) {
                                     
                                     if(status === "COMPLETED")  {
                                         clearInterval(describe);
-                                        res.json(data);
+                                        let sessionInfo = data.TicketList[0].GameSessionConnectionInfo;
+                                        res.json({
+                                            Address: sessionInfo.IpAddress+':'+sessionInfo.Port,
+                                            PlayerId: sessionInfo.PlayerId,
+                                            PlayerSessionId: sessionInfo.PlayerSessionId,
+                                        });
                                     }
                                 }
                             });
