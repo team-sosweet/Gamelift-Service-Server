@@ -38,7 +38,6 @@ router.get('/start', function(req, res, next) {
     gamelift.searchGameSessions(searchParams, function(err, data) {
         if (err) next(new Err(err.statusCode, err.message));
         else {
-            console.log(data);
             const sessions = data.GameSessions.length;
             if(sessions) {
                 let sessionInfo = data.GameSessions[0];
@@ -46,12 +45,10 @@ router.get('/start', function(req, res, next) {
                     GameSessionId: sessionInfo.GameSessionId,
                     PlayerId: uuid.v4()
                 }
-                console.log(createParams)
                 gamelift.createPlayerSession(createParams, function(err, data) {
                     if (err) next(new Err(err.statusCode, err.message));
                     else {
                         let sessionInfo = data.PlayerSession;
-                        console.log(data.PlayerSession);
                         res.json({
                             Address: sessionInfo.IpAddress + ':' + sessionInfo.Port,
                             PlayerId: sessionInfo.PlayerId,
@@ -63,7 +60,6 @@ router.get('/start', function(req, res, next) {
                 gamelift.startMatchmaking(matchParams, function(err, data) {
                     if (err) next(new Err(err.statusCode, err.message));
                     else {
-                        console.log(data);
                         let describe = setInterval(function test() {
                             gamelift.describeMatchmaking({TicketIds: [ticketId]}, function(err, data) {
                                 if (err) console.error(err, err.stack);
@@ -78,10 +74,11 @@ router.get('/start', function(req, res, next) {
                                     if(status === "COMPLETED")  {
                                         clearInterval(describe);
                                         let sessionInfo = data.TicketList[0].GameSessionConnectionInfo;
+                                        let players = sessionInfo.MatchedPlayerSessions[0]
                                         res.json({
                                             Address: sessionInfo.IpAddress+':'+sessionInfo.Port,
-                                            PlayerId: sessionInfo.PlayerId,
-                                            PlayerSessionId: sessionInfo.PlayerSessionId,
+                                            PlayerId: players.PlayerId,
+                                            PlayerSessionId: players.PlayerSessionId,
                                         });
                                     }
                                 }
