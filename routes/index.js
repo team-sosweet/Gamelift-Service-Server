@@ -5,6 +5,7 @@ const swaggerSpec = require('../utils/swagger');
 let matchRouter = require('./match');
 let latencyRouter = require('./latency');
 let sessionRouter = require('./session');
+let fleetRouter = require('./fleet');
 
 let router = express.Router();
 
@@ -12,6 +13,7 @@ router.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 router.use('/match', matchRouter);
 router.use('/latency', latencyRouter);
 router.use('/session', sessionRouter);
+router.use('/fleet', fleetRouter);
 router.get('/ping', (req, res) => {
   res.status(200).json({description: "ping test success."});
 })
