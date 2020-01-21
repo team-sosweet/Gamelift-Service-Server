@@ -27,6 +27,10 @@ router.get('/ping', (req, res) => {
  *      description: checking latency APIs
  *  -   name: ping
  *      description: server ping test
+ *  -   name: session
+ *      description: managing game session
+ *  -   name: fleet
+ *      description: managing game fleet
 */
 
 /**
@@ -152,4 +156,65 @@ router.get('/ping', (req, res) => {
   *                         type: string
   *                         example: ping test success.
   */
+
+  /**
+   * @swagger
+   * /:
+   *  get:
+   *    summary: 설정한 fleetId 가져오기(redis)
+   *    tags: [fleet]
+   *    responses:
+   *      200:
+   *        description: redis에 저장된 fleetId 반환
+   *        schema:
+   *          type: object
+   *          properties:
+   *            description:
+   *              type: string
+   *              example: arn:aws:gamelift:ap-northeast-2:033336267566:fleet/fleet-a89583d5-6eda-4d89-9e1c-e12cc2347c63
+   * 
+   * /id:
+   *  post:
+   *    summary: fleetId 설정(redis)
+   *    tags: [fleet]
+   *    parameters:
+   *        - in: body
+   *          name: fleetId
+   *          required: true
+   *          type: string
+   *    responses:
+   *       201:
+   *           description: fleetId를 redis(cache 저장소)에 저장
+   *           schema:
+   *            type: object
+   *            properties:
+   *              description:
+   *                type: string
+   *                example: OK
+   */
+
+   /**
+    * @swagger
+    * /create:
+    *   get:
+    *     summary: game session 검색/생성 및 player session 생성
+    *     tags: [session]
+    *     parameters:
+    *         - in: query
+    *           name: AliasId
+    *           required: true
+    *           type: string
+    *     responses:
+    *       200:
+    *           description: game session information
+    *           schema:
+    *             type: object
+    *             properties:
+    *               Address:
+    *                 type: string
+    *               PlayerId:
+    *                 type: string
+    *               PlayerSessionId:
+    *                 type: string
+    */
 module.exports = router;
