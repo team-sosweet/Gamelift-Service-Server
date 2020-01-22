@@ -191,6 +191,29 @@ router.get('/ping', (req, res) => {
    *              description:
    *                type: string
    *                example: OK
+   * 
+   * /playTime:
+   *  get:
+   *    summary: 게임 플레이 가능 시간 반환
+   *    tags: [fleet]
+   *    responses:
+   *      200:
+   *        description: playTime
+   *        schema:
+   *          type: object
+   *          properties:   
+   *            startHour:
+   *              type: integer
+   *              example: 17
+   *            startMinute:
+   *              type: integer
+   *              example: 30
+   *            endHour:
+   *              type: integer
+   *              example: 18
+   *            endMinute:
+   *              type: integer
+   *              example: 40
    */
 
    /**
@@ -216,5 +239,13 @@ router.get('/ping', (req, res) => {
     *                 type: string
     *               PlayerSessionId:
     *                 type: string
+    *       500:
+    *           description: failed to run game session(플레이 가능 시간이 아닐 때 또는 OUTDATED)
+    *           schema:
+    *             type: object
+    *             properties:
+    *               description:
+    *                 type: string
+    *                 example: Unable to reserve a process on fleet fleet-a89583d5-6eda-4d89-9e1c-e12cc2347c63 / OUTDATED
     */
 module.exports = router;
