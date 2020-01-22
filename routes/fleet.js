@@ -19,11 +19,22 @@ router.get('/', async function(req, res, next) {
     })
 })
 
-let startGame = schedule.scheduleJob({hour: 17, minute: 25}, async function() {
+router.get('/playTime', function(req, res, next) {
+    res.json({
+        startHour: process.env.startHour,
+        startMinute: process.env.startMinute,
+        endHour: process.env.endHour,
+        endMinute: process.env.endMinute,
+    })
+})
+
+let startGame = schedule.scheduleJob({hour: process.env.startHour, minute: process.env.startMinute-5}, async function() {
+    console.log('started game');
     await updateFleetCapacity(1);
 })
 
-let endGame = schedule.scheduleJob({hour: 18, minute: 40}, async function() {
+let endGame = schedule.scheduleJob({hour: process.env.endHour, minute: process.env.endMinute}, async function() {
+    console.log('ended game');
     await updateFleetCapacity(0);
 })
 
