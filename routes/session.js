@@ -14,8 +14,7 @@ router.get('/create', async function(req, res, next) {
             if(sessions == undefined || sessions == null) throw new Err(403, 'OUTDATED');
             else {
                 if(sessions.GameSessions.length) {
-                    let data = await createPlayerSession(sessions[0]).catch(next);
-                    console.log(sessions[0]);
+                    let data = await createPlayerSession(sessions.GameSessions[0]).catch(next);
                     let playerInfo = data.PlayerSession;
                     res.json({
                         Address: `${playerInfo.IpAddress}:${playerInfo.Port}`,
