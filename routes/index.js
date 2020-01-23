@@ -21,16 +21,16 @@ router.get('/ping', (req, res) => {
 /** 
  * @swagger
  * tags:
- *  -   name: match
+ *  -   name: ping
+ *      description: server ping test API
+ *  -   name: session
+ *      description: managing game session APIs
+ *  -   name: fleet
+ *      description: managing game fleet APIs
+ *  -   name: match(deprecated)
  *      description: matchmaking APIs
  *  -   name: latency(deprecated)
  *      description: checking latency APIs
- *  -   name: ping
- *      description: server ping test
- *  -   name: session
- *      description: managing game session
- *  -   name: fleet
- *      description: managing game fleet
 */
 
 /**
@@ -38,7 +38,7 @@ router.get('/ping', (req, res) => {
  * /match/start:
  *  get:
  *      summary: 매치메이킹 시작 요청 및 매치메이킹 성공 시 까지 대기
- *      tags: [match]
+ *      tags: [match(deprecated)]
  *      parameters:
  *          - in: query
  *            name: ticketId
@@ -76,7 +76,7 @@ router.get('/ping', (req, res) => {
  * /match/cancel:
  *  delete:
  *      summary: 매치메이킹 취소 요청(매치메이킹 진행 중에만 가능)
- *      tags: [match]
+ *      tags: [match(deprecated)]
  *      parameters:
  *          - in: query
  *            name: ticketId
@@ -159,7 +159,7 @@ router.get('/ping', (req, res) => {
 
   /**
    * @swagger
-   * /:
+   * /fleet/:
    *  get:
    *    summary: 설정한 fleetId 가져오기(redis)
    *    tags: [fleet]
@@ -173,7 +173,7 @@ router.get('/ping', (req, res) => {
    *              type: string
    *              example: arn:aws:gamelift:ap-northeast-2:033336267566:fleet/fleet-a89583d5-6eda-4d89-9e1c-e12cc2347c63
    * 
-   * /id:
+   * /fleet/id:
    *  post:
    *    summary: fleetId 설정(redis)
    *    tags: [fleet]
@@ -192,7 +192,7 @@ router.get('/ping', (req, res) => {
    *                type: string
    *                example: OK
    * 
-   * /playTime:
+   * /fleet/playTime:
    *  get:
    *    summary: 게임 플레이 가능 시간 반환
    *    tags: [fleet]
@@ -218,7 +218,7 @@ router.get('/ping', (req, res) => {
 
    /**
     * @swagger
-    * /create:
+    * /session/create:
     *   get:
     *     summary: game session 검색/생성 및 player session 생성
     *     tags: [session]

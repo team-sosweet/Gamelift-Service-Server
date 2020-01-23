@@ -4,10 +4,10 @@ const swaggerJsDoc = require('swagger-jsdoc');
 var swaggerDefinition = {
     info: {
         title: 'Saucewich Service Server',
-        version: '1.1.0',
+        version: '1.1.2',
         description: 'Saucewich Service Server API Document'
     },
-    host: 'localhost:3000',
+    host: 'api.saucewich.net',
     basePath: '/',
 }
 
