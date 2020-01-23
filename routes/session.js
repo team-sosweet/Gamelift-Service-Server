@@ -26,16 +26,18 @@ router.get('/create', async function(req, res, next) {
                     console.log('nothing');
                     let gameSession = await createGameSession(AliasId).catch(next);
                     console.log(gameSession);
-                    setTimeout(
-                        async function() {
-                            let data = await createPlayerSession(gameSession.GameSession).catch(next);  
-                            let playerInfo = data.PlayerSession;
-                            res.json({
-                                Address: `${playerInfo.IpAddress}:${playerInfo.Port}`,
-                                PlayerId: playerInfo.PlayerId,
-                                playerSessionId: playerInfo.PlayerSessionId
-                            })
-                        },3000);
+                    if(gameSession) {
+                        setTimeout(
+                            async function() {
+                                let data = await createPlayerSession(gameSession.GameSession).catch(next);  
+                                let playerInfo = data.PlayerSession;
+                                res.json({
+                                    Address: `${playerInfo.IpAddress}:${playerInfo.Port}`,
+                                    PlayerId: playerInfo.PlayerId,
+                                    playerSessionId: playerInfo.PlayerSessionId
+                                })
+                            },3000);
+                    }
                 }
             }
         }
